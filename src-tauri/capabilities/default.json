@@ -1,0 +1,20 @@
+{
+  "identifier": "default",
+  "description": "Default capability for ClipTranslate",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "core:window:default",
+    "core:window:allow-show",
+    "core:window:allow-hide",
+    "core:window:allow-set-focus",
+    "core:window:allow-center",
+    "core:window:allow-set-position",
+    "core:window:allow-set-size",
+    "clipboard-manager:allow-read-text",
+    "clipboard-manager:allow-write-text",
+    "global-shortcut:allow-register",
+    "global-shortcut:allow-unregister",
+    "global-shortcut:allow-is-registered"
+  ]
+}
