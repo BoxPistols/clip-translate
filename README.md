@@ -84,8 +84,14 @@ pnpm tauri dev
 ```bash
 cd ~/dev/clip-translate
 
-# プロダクションビルド
-pnpm tauri build
+# プロダクションビルド（成果物は src-tauri/target/release/bundle/ に生成）
+pnpm tauri:build
+
+# ビルド → デスクトップに .app をコピー
+pnpm tauri:release
+
+# ビルド → /Applications に直接インストール
+pnpm tauri:install
 ```
 
 ### ビルド出力パス

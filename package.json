@@ -9,7 +9,9 @@
     "preview": "vite preview",
     "tauri": "tauri",
     "tauri:dev": "tauri dev",
-    "tauri:build": "tauri build"
+    "tauri:build": "tauri build",
+    "tauri:release": "tauri build && cp -r src-tauri/target/release/bundle/macos/ClipTranslate.app ~/Desktop/ && echo '✅ ~/Desktop/ClipTranslate.app に出力しました'",
+    "tauri:install": "tauri build && cp -r src-tauri/target/release/bundle/macos/ClipTranslate.app /Applications/ && echo '✅ /Applications にインストールしました'"
   },
   "dependencies": {
     "react": "^18.3.1",
