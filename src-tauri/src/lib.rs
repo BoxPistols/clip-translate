@@ -68,7 +68,9 @@ pub fn run() {
 
             let _tray = TrayIconBuilder::new()
                 .icon(app.default_window_icon().unwrap().clone())
+                .icon_as_template(true)
                 .menu(&menu)
+                .show_menu_on_left_click(false)
                 .tooltip("ClipTranslate")
                 .on_menu_event(|app, event| match event.id.as_ref() {
                     "show" => {
@@ -81,6 +83,36 @@ pub fn run() {
                         app.exit(0);
                     }
                     _ => {}
+                })
+                .on_tray_icon_event(|tray, event| {
+                    // Left click → toggle window
+                    if let tauri::tray::TrayIconEvent::Click {
+                        button: tauri::tray::MouseButton::Left,
+                        button_state: tauri::tray::MouseButtonState::Up,
+                        ..
+                    } = event
+                    {
+                        let app = tray.app_handle();
+                        if let Some(window) = app.get_webview_window("main") {
+                            if window.is_visible().unwrap_or(false) {
+                                window.hide().ok();
+                            } else {
+                                // Position at right edge of screen
+                                if let Ok(Some(monitor)) = window.primary_monitor() {
+                                    let screen = monitor.size();
+                                    let scale = monitor.scale_factor();
+                                    let win_w = (440.0 * scale) as i32;
+                                    let win_h = (420.0 * scale) as i32;
+                                    let x = screen.width as i32 - win_w - (24.0 * scale) as i32;
+                                    let y = (screen.height as i32 - win_h) / 2;
+                                    window.set_position(PhysicalPosition::new(x, y)).ok();
+                                }
+                                window.show().ok();
+                                window.set_focus().ok();
+                            }
+                        }
+                    }
+                    // Right click → menu is shown automatically by Tauri
                 })
                 .build(app)?;
 
