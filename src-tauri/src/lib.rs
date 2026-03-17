@@ -67,8 +67,12 @@ pub fn run() {
             let menu = Menu::with_items(app, &[&show_item, &quit_item])?;
 
             let tray_icon_bytes = include_bytes!("../icons/tray-icon@2x.png");
-            let tray_icon_image = tauri::image::Image::from_bytes(tray_icon_bytes)
-                .expect("Failed to load tray icon");
+            let decoder = png::Decoder::new(std::io::Cursor::new(tray_icon_bytes));
+            let mut reader = decoder.read_info().expect("Failed to decode tray icon PNG");
+            let mut buf = vec![0; reader.output_buffer_size()];
+            let info = reader.next_frame(&mut buf).expect("Failed to read tray icon frame");
+            buf.truncate(info.buffer_size());
+            let tray_icon_image = tauri::image::Image::new_owned(buf, info.width, info.height);
 
             let _tray = TrayIconBuilder::new()
                 .icon(tray_icon_image)

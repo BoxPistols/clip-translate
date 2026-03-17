@@ -334,6 +334,7 @@ dependencies = [
  "chrono",
  "dirs 5.0.1",
  "log",
+ "png 0.17.16",
  "reqwest 0.12.28",
  "serde",
  "serde_json",

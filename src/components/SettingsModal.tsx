@@ -194,7 +194,7 @@ export default function SettingsModal({ isOpen, onClose }: Props) {
       />
 
       <div className="relative bg-white dark:bg-[#2a2a2a] rounded-xl shadow-xl
-        dark:shadow-2xl dark:shadow-black/40 w-[400px] animate-slide-up overflow-hidden">
+        dark:shadow-2xl dark:shadow-black/40 w-[400px] max-h-[calc(100vh-1rem)] flex flex-col animate-slide-up overflow-hidden">
         <div className="flex items-center justify-between px-5 py-3.5
           border-b border-gray-100 dark:border-white/[0.06]">
           <h2 className="text-sm font-semibold text-gray-800 dark:text-gray-200">設定</h2>
@@ -210,7 +210,7 @@ export default function SettingsModal({ isOpen, onClose }: Props) {
           </button>
         </div>
 
-        <div className="px-5 py-4 space-y-4">
+        <div className="px-5 py-4 space-y-4 overflow-y-auto flex-1 min-h-0">
           {/* DeepL API Key */}
           <div>
             <label className="block text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1.5">
